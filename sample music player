@@ -1,0 +1,1120 @@
+--><!doctype html>
+<html>
+ <head> 
+  <title>Simple music player</title> 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+ </head> 
+ <body> 
+  <style>/* Created by Nilesh*/
+
+@import url('https://fonts.googleapis.com/css?family=Handlee');
+@import url(' https://fonts.googleapis.com/css?family=Great+Vibes|Ubuntu|Sacramento');
+
+html{
+      scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f012be;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+   font-family: handlee;
+    -webkit-touch-callout: none;     -webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    -o-user-select: none; 
+    user-select: none; 
+ 
+}
+
+.container{
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 100px;
+    background: #fffafa;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 20px 20px #0000ff;
+}
+
+
+.card{
+    background: #f5fffa;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px #252525;
+    overflow: hidden;
+    margin-bottom: 50px;    
+}
+
+.title{
+    font-size: 25px;
+    margin: 15px;
+    width: calc(100%-20px);
+    word-break: nowrap;
+    overflow: hidden;
+white-space: nowrap;
+text-overflow:handlee ;
+  
+
+}
+
+.author{
+    margin: 0 0 0 15px;
+    color: #252525;
+     width: calc(100%-20px);
+    word-break: nowrap;
+    overflow: hidden;
+white-space: nowrap;
+text-overflow: handlee;
+font-size: 15px;   
+    
+   
+}
+
+.control{
+    width: 100%;
+    text-align: center;
+    
+}
+
+.panel{
+    width: calc(100% - 150px);
+}
+
+.image img{
+    width: 150px;
+    min-height: 100%;
+    object-fit: cover;
+    line-height: 0;
+}
+
+.panel button{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #000;
+}
+
+.panel .playbtn{
+    transform: scale(1.5);
+    text-align: center;
+}
+
+
+.control{
+    margin: 40px 0 20px 0px;
+}
+
+
+.banner{
+    width: 100%;
+    height: 200px;
+    background: url(https://unsplash.com/photos/cZWZjymwI9o);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav{
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    transition: 0.5s;
+}
+
+.icon{
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.text{
+    color: #fff;
+    text-shadow: 0 0 15px #000;
+    font-size: 35px;
+    font-family: great vibes;
+}
+.heart{
+    animation:beat 1s linear infinite ;
+    display:inline-block ;
+}
+@keyframes beat{
+    0%{
+        transform:translateY(-5px) scale(0.8) translateX(1px);
+    }
+    50%{
+        transform:translateY(5px) scale(1.1) translateX(0);
+    }
+    100%{
+        transform:translateY(0px) scale(0.9) translateX(-1px);
+    }
+}
+.searchbar{
+    width: 100%;
+    height: 55px;
+    background: #fff;
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 4;
+    transition: 0.5s;
+}
+
+.icon{
+    min-width: 55px;
+}
+
+.back{
+    color: #252525;
+}
+
+#inp{
+    border: none;
+    outline: none;
+    width: 100%;
+}
+.con{
+    color:#000;
+}
+.d{
+    font-size:1em;
+    padding:10px;
+}
+.heart{
+    animation:beat 1s linear infinite ;
+    display:inline-block ;
+}
+@keyframes beat{
+    0%{
+        transform:translateY(-5px) scale(0.8) translateX(1px);
+    }
+    50%{
+        transform:translateY(5px) scale(1.1) translateX(0);
+    }
+    100%{
+        transform:translateY(0px) scale(0.9) translateX(-1px);
+    }
+}
+
+.loadingmusic{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 7;
+    background: #0000ff;
+    color: #ffff00;
+    width: 100%;
+    height: 30px;
+    transform: scaleY(0);
+    transition: 0.5s;
+    transform-origin: bottom;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+.loader div:nth-child(1){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0s;  
+    -webkit-animation-iteration-count: infinite;
+    transition: 1s;
+}
+
+.loader div:nth-child(2){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.08s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.08s;  
+    -webkit-animation-iteration-count: infinite;
+    transition: 1s;
+}
+
+.loader div:nth-child(3){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.16s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.16s;  
+    -webkit-animation-iteration-count: infinite;
+    -webkit-transition: 8s;
+}
+
+
+.loader div:nth-child(4){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.24s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.24s;  
+    -webkit-animation-iteration-count: infinite;
+    -webkit-transition: 4s;
+}
+
+
+.loader div:nth-child(5){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.32s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.32s;  
+    -webkit-animation-iteration-count: infinite;
+    -webkit-transition: 3s;
+}
+
+.loader div:nth-child(6){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.40s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.40s;  
+    -webkit-animation-iteration-count: infinite;
+    -webkit-transition: 2s;
+}
+
+.loader div:nth-child(7){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.48s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.48s;  
+    -webkit-animation-iteration-count: infinite;
+    -webkit-transition: 1s;
+}
+
+.loader div:nth-child(8){
+    animation-name: colorchange;   
+    animation-duration: 1s; 
+    animation-delay: 0.56s;  
+    animation-iteration-count: infinite;
+    -webkit-animation-name: colorchange;   
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-delay: 0.56s;  
+    -webkit-animation-iteration-count: infinite;
+    -webkit-transition:  0.1s;
+}
+
+@keyframes colorchange {
+   0% {
+    background: #07CFD4;
+    }
+    50% { 
+    background: #fff;
+    }
+    100% { 
+    background: #07CFD4;
+    }
+}
+@-webkit-keyframes colorchange {
+    0% {
+    background: #07CFD4;
+    }
+    50% { 
+    background: #fff;
+    }
+    100% { 
+    background: #07CFD4;
+    }
+}
+
+
+.loader div{
+    width: 10px;
+    height: 10px;
+    background: #07CFD4;
+    
+    border-radius: 0px;
+    float: right;
+}
+
+
+.drop{
+    width: 250px;
+    height: 100vh;
+    background: #f5f5f5;
+    box-shadow: 0 0 10px #0009;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    z-index: 8;
+    transition: 0.5s;
+}
+
+.crossm{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    font-size: 20px;
+    color: #07CFD4;
+}
+
+
+
+.preloader{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: #f5f5f5;
+}
+.loaders{
+    width: 35px;
+    height: 35px;
+    border-top: 4px solid #07CFD4;
+    border-bottom: 4px solid #07CFD4;
+    border-left: 4px solid #07CFD4;
+    border-right: 4px solid transparent;
+    border-radius: 100px;
+    
+    animation: load 3s linear infinite;
+}
+y
+@keyframes load {
+   
+   0% {
+    transform: rotate(0deg);
+    
+    }
+    100% {
+    transform: rotate(3600deg);
+    
+    }
+     
+    
+}
+@-webkit-keyframes load {
+    
+    0% {
+    transform: rotate(0deg);
+    
+    }
+    100% {
+    transform: rotate(3600deg);
+    
+    }
+     
+}</style> 
+  <div id="drop" class="drop"> 
+   <div onclick="closem()" class="crossm">
+     ╳ Close 
+   </div> 
+   <div class="mtext">
+     The 
+    <a href="https://www.sololearn.com/Profile/18927037/?ref=app"><b>Fortest Francis</b></a>
+    <span class="heart">♥</span>work 
+    <br> 
+    <b>Top 10 list</b>
+    <br> 1. Sarkodie
+    <br> 2. Stonebwoy
+    <br> 3. Girls Like You
+    <br> 4. Shape Of You 
+    <br> 5. KiDi
+    <br> 6. Kelvyn boy
+    <br> 7. Fameye
+    <br> 8. DJ-Breezy
+    <br> 9. D-Black
+    <br> 10. King Promisee
+	<br> 
+   </div> 
+  </div> 
+  <nav id="nav"> 
+   <div onclick="openm()" class="menu icon"> 
+    <i class="material-icons">menu</i> 
+   </div> 
+   <div onclick="opensearch()" class="search icon"> 
+    <i class="material-icons">search</i> 
+   </div> 
+  </nav> 
+  <div id="sbar" class="searchbar"> 
+   <div onclick="closesearch()" class="back icon"> 
+    <i class="material-icons">arrow_back</i> 
+   </div> 
+   <input oninput="search()" placeholder="I Am still a noob😣" id="inp"> 
+  </div> 
+  <div class="banner"> 
+   <div id="text" class="text"> 
+   </div> 
+  </div> 
+  <div id="container" class="container"> 
+  </div> 
+  <div class="con"> 
+   <div id="loadmusic" class="loadingmusic"> 
+    <div class="loader"> 
+     <div></div> 
+     <div></div> 
+     <div></div> 
+     <div></div> 
+     <div></div> 
+     <div></div> 
+     <div></div> 
+     <div></div> 
+    </div> 
+   </div> 
+   <div id="pre" class="preloader"> 
+    <div class="loaders"> 
+    </div> 
+   </div> 
+   <script>// Created by Nilesh
+
+
+
+var markup = function(id, name, author, image){
+    
+    return `
+    
+    
+    <div class="card">
+        
+        <div class="panel">
+        
+        <div class="title">
+            ${name}
+        </div>
+        
+        <div class="author">
+            ${author}
+        </div>
+        
+        <div class="control">
+            
+            <button onclick="mint()" class="prev">
+            
+            <i class="material-icons">fast_rewind</i>
+                
+                
+            </button>
+            
+            <button id="playbtn${id}" onclick="play(this, ${id})" class="playbtn">
+            
+            <i class="material-icons">play_arrow</i>
+                
+            </button>
+            
+            <button onclick="maxt()" class="next">
+            
+             <i class="material-icons">fast_forward</i>
+                
+            </button>
+            
+        </div>
+            
+        </div>
+        
+        <div class="image">
+        
+        <img src="${image}"/>
+            
+        </div>
+        
+            
+        </div>
+        
+        
+        `;
+    
+};
+
+var aud = new Audio(); 
+
+var lastsong = null;
+
+
+var i=0,text;
+text="     Nilesh music Player "
+
+
+    
+       function typing(){ document.getElementById("text").innerHTML+=text.charAt(i);
+        i++;
+        }
+        setInterval(typing,300);
+    
+    
+
+var songs = [
+
+
+{
+	name: "Brown Paper",
+    artist: "Sarkodie ft M.Manifest",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/06/sarkodiee.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/06/Sarkodie-Brown-Paper-Bag-ft.-M.anifest.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Cold Water",
+    artist: "Justin Bieber",
+    poster: "https://pbs.twimg.com/media/Cn_kdiRUIAEeooP?format=jpg&name=small",
+    song: "https://dl.dropbox.com/s/r8neonq04xryfeh/Cold%20Water_Major%20Lazer%2CJustin%20Bieber_Friendship%20Day.xoht?dl=0",
+    isPlay: false
+},
+
+
+
+{
+    name: "Okomfour Kwaadee",
+    artist: "Fameye",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/06/fameye-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/06/Fameye-Okomfour-Kwaadee-Prod.-By-Liquid-Beatz.mp3",
+    isPlay: false
+},
+
+
+
+{
+    name: "Girls Like You",
+    artist: "Maaron 5 ft Cardi B",
+    poster: "https://m.media-amazon.com/images/M/MV5BNWM5OWI2OWUtNjhiOS00MWYxLTlhZmUtMGZjYzBlNDA3M2MyXkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_QL50_SY1000_SX1000_AL_.jpg",
+    song: "https://dl.dropbox.com/s/yc2k5e8kvtg291q/Girls%20Like%20You_Maroon%205_Girls%20Like%20You.xoht?dl=0",
+    isPlay: false
+},
+
+
+
+{
+    name: "Shape Of You",
+    artist: "Ed Sheeran",
+    poster: "https://m.media-amazon.com/images/I/81PPDaaySeL._SS500_.jpg",
+    song: "https://dl.dropbox.com/s/e53xcg3ur11mqlk/Ed%20Sheeran%20-%20Shape%20Of%20You%20%5BOfficial%5D%20%281%29.mp3?dl=0",
+    isPlay: false
+},
+
+
+
+{
+    name: "I don't care",
+    artist: "Ed Sheeran ft Justin Bieber",
+    poster: "https://images.popbuzz.com/images/50942?crop=16_9&width=660&relax=1&signature=yOpdfdBOnxJUHVp-gwR_MWqiiag=",
+    song: "https://dl.dropbox.com/s/du1uuk9mttlm3tf/I%20Don%27t%20Care_Max%20Martin%2CMax%20Martin%2CMax%20Martin%2CMax%20Martin%2CMax%20Martin_I%20Don%27t%20Care.xoht?dl=0",
+    isPlay: false
+},
+
+{
+    name: "Burning Spear Jah Nuh Dead Mixtape",
+    artist: "DJ Manni",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/03/dj-manni-burning-spear-jah-nuh-dead-mixtape-620x621.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/03/DJ-Manni-Burning-Spear-Jah-Nuh-Dead-Mixtape_.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Long Life",
+    artist: "Fameye ft Kwesi Arthur",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/03/fameye-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/03/Fameye-Long-Life-ft.-Kwesi-Arthur-Prod-by-BodyBeatz.mp3",
+    isPlay: false
+},
+
+{
+    name: "Love Me Like You Do",
+    artist: "Ellie Goudling",
+    poster: "https://upload.wikimedia.org/wikipedia/en/1/17/Ellie_Goulding_-_Love_Me_Like_You_Do.png",
+    song: "https://dl.dropbox.com/s/t2c46404cyrygr1/Ellie%20Goulding%20-%20Love%20Me%20Like%20You%20Do%20.mp3?dl=0",
+    isPlay: false
+},
+
+{
+    name: "BHIM Tape",
+    artist: "Stonebwoy",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/03/stonebwoy-bhim-tape-4-620x621.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/03/Stonebwoy-Bhim-Tape-Vol-4-Hosted-By-DJ-Manni_.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Faded",
+    artist: "Alan Walker",
+    poster: "https://upload.wikimedia.org/wikipedia/en/thumb/d/da/Alan_Walker_-_Faded.png/220px-Alan_Walker_-_Faded.png",
+    song: "https://dl.dropbox.com/s/4dr5sfmoyi9572k/Alan%20Walker%20-%20Faded.mp3?dl=0 ",
+    isPlay: false
+},
+
+
+{
+    name: "Low Key Vibes",
+    artist: "D-Black ft DarkoVibes & Dahlin Gage",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/06/DBLACK.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/06/DBlack-Low-Key-Vibes-ft.-DarkoVibes-x-Dahlin-Gage.mp3",
+    isPlay: false
+},
+
+
+
+
+{
+    name: "Closer",
+    artist: "Chainsmoker, Ft. Halsey",
+    poster: "https://wallpapercave.com/wp/wp4606687.jpg",
+    song: "https://dl.dropbox.com/s/zrll5kci35tyvw1/The%20Chainsmokers%20-%20Closer%20ft%20Halsey.mp3?dl=0",
+    isPlay: false
+},
+
+{
+    name: "Yummy",
+    artist: "Justin Bieber",
+    poster: "https://miro.medium.com/max/640/0*jfJeWbzVcwZ06Sok.jpg",
+    song: "https://dl.dropbox.com/s/s0hh28w0h59chuu/Justin%20Bieber%20-%20Yummy.mp3?dl=0",
+    isPlay: false
+},
+
+
+{
+    name: "Despacito",
+    artist: "Daddy Yankee, Louis Foncy",
+    poster: "https://m.media-amazon.com/images/M/MV5BNmQ4YzYwOWMtODBkOC00YjljLTkzMGYtYjY2OGU1N2NiODE5XkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UY120_CR19,0,82,120_AL_.jpg",
+    song: "https://dl.dropbox.com/s/5v7lazyj1x0yz5r/Luis%20Fonsi%20-%20Despacito%20ft%20Daddy%20Yankee.mp3?dl=0",
+    isPlay: false
+},
+
+{
+    name: "Old Town Road",
+    artist: "Lil Nas",
+    poster: "https://musicrow.com/wp-content/uploads/2019/05/Old-Town-Road-poster.jpg",
+    song: "https://dl.dropbox.com/s/j1y8td9gbtg8j2q/Lil%20Nas%20X%20-%20Old%20Town%20Road%20ft%20Billy%20Ray%20Cyrus.mp3?dl=0",
+    isPlay: false
+},
+
+
+{
+    name: " MoMo (Mobile Money)",
+    artist:"Kelvyn Boy ft. Darkovibes x Mugeez (R2Bees)",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/04/KELVYN-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/04/Kelvyn-Boy-MoMo-Mobile-Money-ft.-Darkovibes-x-Mugeez-R2Bees.mp3",
+    isPlay: false
+},
+
+{
+    name: "Mad Sex",
+    artist: "Jessie Mens ft Kelvyn Boy",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/07/jessie-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/07/Jessie-Mens-Mad-Sex-ft.-Kelvyn-Boy-Prod-by-Samsney.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Guy Guy",
+    artist: "DJ Breezy ft R2Bees x Joey B",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2019/05/breezy-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2019/05/DJ-Breezy-Guy-Guy-ft.-R2Bees-x-Joey-B-Prod.-by-DJ-Breezy.mp3",
+    isPlay: false
+},
+
+
+
+{
+    name: "Adom Bi",
+    artist: "Bra Collins ft. Obrafour",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2019/10/bra-collins-adom-bi-ft-obrafour-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2019/10/Bra-Collins-Adom-Bi-Ft-Obrafour-Prod-By-Wei-Ye-Oteng_.mp3",
+    isPlay: false
+},
+
+
+
+{
+    name: "The Reason",
+    artist: "El-Roy",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2019/09/IMG-20190923-WA0000-450x450.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2019/09/El-Roy-The-Reason.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Love and Forgiveness  ",
+    artist: "Bra Collins ft. Carl Clottey",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2019/02/bra-collins-love-and-forgiveness-620x620.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2019/02/Bra-Collins-Love-And-Forgiveness-Ft-Carl-Clottey.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Oonda",
+    artist: "Ras Kuuku ft Medikal",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2017/04/ras-kuku.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2017/04/Ras-Kuuku-Oonda-ft-Medikal-Prod-By-IbeeOnDeBeatz.mp3",
+    isPlay: false
+},
+
+
+{
+    name: "Prayer",
+    artist: "Kaash ft. Medikal x Timmy",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/06/kaash-620x620.jpeg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/06/Kaash-Prayer-ft.-Medikal-x-Timmy.mp3",
+    isPlay: false
+},
+{
+    name: "Sisa",
+    artist: "King Promise ",
+    poster: "https://tubidy.net/nthumbs/1/_2FzSfyyP_2B3WFI7i15RKqiAg_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/5/fa/king_promise_sisa_official_video_mp3_59195.mp3?play",
+    isPlay: false
+},
+
+{
+    name: "Nyame",
+    artist: "Medikal ft. Kevin Fianko",
+    poster: "https://www.ghanamotion.com/wp-content/uploads/2020/06/mdk.jpg",
+    song: "https://www.ghanamotion.com/wp-content/uploads/2020/06/Medikal-Nyame-ft.-Kevin-Fianko-Prod.-by-Chensee-Beatz.mp3",
+    isPlay: false
+},
+
+
+
+{
+    name: "LONG LIFE ",
+    artist: "Fameye Ft. Kwesi Arthur",
+    poster: "https://tubidy.net/nthumbs/1/5wXEyQjstd1R7T6AsQRCEQ_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/f/ae/fameye_long_life_ft._kwesi_arthur_official_video_mp3_55943.mp3?play",
+    isPlay: false
+},
+
+
+
+{
+    name: "Say Cheese",
+    artist: "KiDi",
+    poster: "https://tubidy.net/nthumbs/1/MF90EMsUvUDhw1L1tqyutg_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/2/1e/kidi_say_cheese_official_home_video_mp3_56124.mp3?play",
+    isPlay: false
+},
+
+
+
+
+{
+    name: " Later",
+    artist: "Mr Drew  feat. Kelvynboy",
+    poster: "https://tubidy.net/nthumbs/1/mdi_2BgCVsathgwqBDJjP7bw_3D_3D.jpg",
+    song: "http://85.25.218.17/tb/4/79/mr_drew_later_feat._kelvynboy_official_video_mp3_56346.mp3?play",
+    isPlay: false
+},
+
+
+
+
+{
+    name: "Duduke",
+    artist: "SIMI",
+    poster: "https://tubidy.net/nthumbs/1/EwxHTNhwdlwgh4SFGPLiVA_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/b/87/simi_duduke_official_video_mp3_56708.mp3?play",
+    isPlay: false
+},
+
+
+
+
+{
+    name: "Emergency",
+    artist: "Wendy Shay  ft. Bosom PYung",
+    poster: "https://tubidy.net/nthumbs/1/8I9T1vITnL6SBgNtoE4AZw_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/6/66/wendy_shay_emergency_ft._bosom_pyung_official_video_mp3_56793.mp3?play",
+    isPlay: false
+},
+
+
+{
+    name: "Posti Me",
+    artist: "Akwaboah",
+    poster: "https://tubidy.net/nthumbs/1/9mHmsNKUFp1Ei93rVtFoqw_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/b/f6/akwaboah_posti_me_visualizer_mp3_56988.mp3?play",
+    isPlay: false
+},
+
+
+
+{
+    name: "Soblo",
+    artist: "Stonebwoy - ft. BHIM Band",
+    poster: "https://tubidy.net/nthumbs/1/rdH7_2FfQkWvz7KexlKbsN9Q_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/2/91/stonebwoy_soblo_music_video_ft._bhim_band_mp3_57985.mp3?play",
+    isPlay: false
+},
+
+
+{
+    name: "Enjoyment",
+    artist: "KiDi",
+    poster: "https://www.theindianwire.com/wp-content/uploads/2019/10/Bhoot-Song.jpg",
+    song: "https://d274.cdn-me.net/tb/2/c4/kidi_enjoyment_official_video_mp3_58147.mp3?play",
+    isPlay: false
+},
+
+{
+    name: "Inna Song Gin & Lime",
+    artist: "Darkovibes ft. King Promise",
+    poster: "https://tubidy.net/nthumbs/1/jpTKvfRpUIyI6v0jQgnVmA_3D_3D.jpg",
+    song: "https://d274.cdn-me.net/tb/9/ca/darkovibes_inna_song_gin_lime_ft._king_promise_official_video_mp3_58276.mp3?play",
+    isPlay: false
+},
+
+
+{
+    name: "Jerusalema Remix ",
+    artist: "Master KG Ft Burna Boy and Nomcebo",
+    poster: "https://tubidy.net/nthumbs/1/VUCXb7thN2CuPN0ScDvldg_3D_3D.jpg",
+    song: "http://188.138.16.140/tb/0/e0/master_kg_jerusalema_remix_feat._burna_boy_and_nomcebo_official_music_audio_mp3_58640.mp3?play",
+    isPlay: false
+},
+
+
+{
+    name: "Le Gba Gbe",
+    artist: "Stonebwoy",
+    poster: "https://tubidy.net/nthumbs/1/oTmqIFQUlKGxdy4PAgZUcg_3D_3D.jpg",
+    song: "http://188.138.102.209/tb/8/c6/stonebwoy_le_gba_gbe_alive_official_video_mp3_58491.mp3?play",
+    isPlay: false
+},
+
+
+];
+
+
+window.onscroll = function (){
+    
+    var nav = document.getElementById("nav");
+    var textb = document.getElementById("text");
+    
+      textb.style.transform = "translate(0, -"+window.scrollY/2+"px)"
+    
+    if(window.scrollY >= 145){
+    
+    nav.style.background = "#07CFD4";
+    
+  
+    
+    }else {
+    
+    nav.style.background = "transparent";
+        
+    }
+    
+}
+
+
+
+window.onload = function (){
+    
+    var container = document.getElementById("container");
+    
+    for(var i=0; i<=songs.length - 1; i++){
+    
+    container.innerHTML += markup(i, songs[i].name, songs[i].artist, songs[i].poster);
+    
+    }
+    var pre = document.getElementById("pre");
+   
+   pre.style.display = "none";
+   
+   
+}
+
+
+function opensearch(){
+
+   document.getElementById("sbar").style.right = "0";
+   
+   scrollTo(0, 145);
+    
+}
+
+function openm(){
+    
+    document.getElementById("drop").style.left = "0";
+    
+}
+
+function closem(){
+    
+    document.getElementById("drop").style.left = "-300px";
+    
+}
+
+function closesearch(){
+
+   document.getElementById("sbar").style.right = "-100%";
+   
+   document.getElementById("inp").value = "";
+   
+  var cardc = document.getElementsByClassName("card");
+  
+  for(var i = 0; i<=cardc.length-1; i++){
+      
+      cardc[i].style.display = "";
+      
+  }
+    
+}
+
+
+function search(){
+    var m = document.getElementsByClassName("card");
+    var inp = document.getElementById("inp").value.toUpperCase();
+for (var i = 0; i <= m.length-1; i++){
+    if(m[i].innerHTML.toUpperCase().indexOf(inp) != -1 ){
+        m[i].style.display = "";
+    }else {
+         m[i].style.display = "none";
+    }
+  }
+}
+
+
+function mint(){
+var isPlaying = aud.currentTime > 0 && !aud.paused && !aud.ended && aud.readyState > 2; 
+    
+    if (isPlaying) {  
+    aud.currentTime = aud.currentTime-10;
+    }
+}
+
+
+function maxt(){
+var isPlaying = aud.currentTime > 0 && !aud.paused && !aud.ended && aud.readyState > 2; 
+    
+    if (isPlaying) {  
+    aud.currentTime = aud.currentTime+10;
+    }
+}
+
+
+
+
+
+
+function play(e, i){
+
+
+    
+    if(songs[i].isPlay == false){
+    
+    var loadmusic = document.getElementById("loadmusic");
+    
+    loadmusic.style.transform = "scaleY(1)";
+    
+    
+    aud.addEventListener('loadeddata', function() {
+    
+    loadmusic.style.transform = "scaleY(0)";
+       
+    }, false);
+    
+    
+    if(lastsong == null){
+        
+        e.innerHTML = "<i class='material-icons'>pause</i>";
+        
+        aud.src = songs[i].song;
+        
+        aud.play();
+        
+        songs[i].isPlay = true;
+        
+        lastsong = i;
+        
+        }else {
+            
+            songs[lastsong].isPlay = false;
+            
+            document.getElementById("playbtn"+lastsong).innerHTML = "<i class='material-icons'>play_arrow</i>";
+            
+            e.innerHTML = "<i class='material-icons'>pause</i>";
+        
+        aud.src = songs[i].song;
+        
+        aud.play();
+        
+        songs[i].isPlay = true;
+        
+        lastsong = i;
+            
+        }
+        
+        
+        
+    }else {
+    
+    var isPlaying = aud.currentTime > 0 && !aud.paused && !aud.ended && aud.readyState > 2; 
+    
+    if (isPlaying) {  
+        
+        e.innerHTML = "<i class='material-icons'>play_arrow</i>";
+        
+        songs[i].isPlay = false;
+        
+        aud.pause();
+        
+        lastsong = null;
+        
+        }
+    }
+}
+
+alert("There are total 36 songs in the playlist");
+alert("Ramayan songs added since my friends asked me to add\n \n Thanks for your visit😍😊🤗");
+alert("Dont forget to upvote the code and follow me");</script> 
+  </div>
+ </body>
+</html>
